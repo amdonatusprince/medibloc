@@ -15,8 +15,8 @@ const Services = () => {
           </div>
           <h2>Secure Medical Record</h2>
           <p>
-            Medisync  offers full privacy to users  logged in on the platform;
-            by allowing them to grant access to second and third parties when authorized
+            Medisync  offers full privacy to users by allowing them to be in total control of their data.
+            They can choose to grant and revoke access to third parties.
           </p>
         </div>
 
@@ -26,8 +26,9 @@ const Services = () => {
           </div>
           <h2>Token and NFT Incentives</h2>
           <p>
-            Unique addresses are assigned to each user making them difficult to identify 
-            there by keeping them safe 
+            Medisync offers users rewards which can be 
+            redeemed in real life to purchase medications, 
+            schedule doctor's appointement.
           </p>
         </div>
 
@@ -37,8 +38,9 @@ const Services = () => {
           </div>
           <h2>Subsizized Healthcare</h2>
           <p>
-            Your personal details are protected from hackers and the blockchain 
-            ensures your information is secure.
+            Medisync issues a "SAVE A LIFE" NFT badge to users who contribute to the society
+            by donating blood to save a life which can be redemmed to access subsidized healthcare
+            globally.
           </p>
         </div>
       </div>
