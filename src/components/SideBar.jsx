@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../assets/medisync-logo.png";
+import newlogo from "../assets/newlogo3.png";
 import patient from "../images/patient.png";
 import view_medical_record from "../../src/images/upload.png";
 import medical from "../images/view.png";
@@ -12,7 +12,7 @@ const SideBar = () => {
   return (
     <div className="side_bar">
       <div className="side_bar-image">
-        <img className="logo" src={logo} alt="" />
+        <img className="logo" src={newlogo} alt="" />
         <img className="patient_image" src={patient} alt="" />
       </div>
       <ul>

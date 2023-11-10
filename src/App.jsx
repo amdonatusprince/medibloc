@@ -18,7 +18,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ConnectWallets from "./pages/ConnectWallet";
 import AuthorizedAddresses from "./pages/AuthorizedAddresses";
-
+import Landing from './pages/landing/landing'
 const App = () => {
   return (
     <div>
@@ -26,9 +26,10 @@ const App = () => {
       
       <BrowserRouter>
         <Routes>
-          <Route index element={<Home />} />
+          {/* <Route path="/prev" element={<Home />} /> */}
           {/* <Route path="/home" element={<Home />} /> */}
           <Route path="/about" element={<About />} />
+          <Route path="/" element={<Landing />} />
           <Route path="/demo" element={<Demo />} />
           <Route path="/services" element={<Services />} />
           <Route path="/web3" element={<Web3 />} />
