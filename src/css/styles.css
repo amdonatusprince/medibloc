@@ -6,7 +6,8 @@
 
 body{
   overflow-x: hidden;
-  font-family: var(--font-family);
+  font-family:  source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  monospace;
 }
 
 /* font-family: 'Poppins', sans-serif; */
@@ -90,7 +91,7 @@ section {
   padding: 0 50px;
   height: 100px;
   width: 100%;
-  background: #436CDF;
+  background: #113355;
   color: white;
   border-bottom: 1px solid gray;
 }
@@ -98,6 +99,7 @@ section {
 .nav_bar h2 {
   font-size: 35px;
   font-weight: 400;
+  color: white;
 }
 
 button {

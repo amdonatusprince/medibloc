@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../assets/medisync-logo.png";
+import newlogo from "../assets/newlogo3.png";
 import patient from "../images/patient.png";
 import view_medical_record from "../../src/images/upload.png";
 import medical from "../images/view.png";
@@ -7,12 +7,13 @@ import access from "../images/access.png";
 import logout from "../images/logout.png";
 import "../css/styles.css";
 import { Link, useMatch, useResolvedPath } from "react-router-dom";
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 const SideBar = () => {
   return (
     <div className="side_bar">
       <div className="side_bar-image">
-        <img className="logo" src={logo} alt="" />
+        <img className="logo" src={newlogo} alt="" />
         <img className="patient_image" src={patient} alt="" />
       </div>
       <ul>
@@ -48,10 +49,13 @@ const SideBar = () => {
           <img src={access} alt="" />
           <p>Authorized Access</p>
         </CustomLink>
+       
         <CustomLink to="/" className="dashboard_link logout_btn" activeClassName="active">
           <img src={logout} alt="" />
           <p>Logout</p>
         </CustomLink>
+
+        <ConnectButton showBalance={false} />
       </ul>
     </div>
   );
