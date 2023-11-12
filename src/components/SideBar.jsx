@@ -7,6 +7,7 @@ import access from "../images/access.png";
 import logout from "../images/logout.png";
 import "../css/styles.css";
 import { Link, useMatch, useResolvedPath } from "react-router-dom";
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 const SideBar = () => {
   return (
@@ -48,10 +49,13 @@ const SideBar = () => {
           <img src={access} alt="" />
           <p>Authorized Access</p>
         </CustomLink>
+       
         <CustomLink to="/" className="dashboard_link logout_btn" activeClassName="active">
           <img src={logout} alt="" />
           <p>Logout</p>
         </CustomLink>
+
+        <ConnectButton showBalance={false} />
       </ul>
     </div>
   );

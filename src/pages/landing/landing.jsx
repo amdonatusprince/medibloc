@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import newlogo from "../../assets/newlogo3.png";
 import {IoMdCheckboxOutline} from 'react-icons/io'
 
+
 export default function Landing() {
   const [isNavOpen, setIsNavOpen] = useState(false);
 
@@ -55,11 +56,9 @@ export default function Landing() {
             onClick={() => moveToSupport(manRef)}
             style={{ fontWeight: "600" }}
           >
-            <li>Features</li>
+            <li>Services</li>
           </Link>
-          {/* <Link className="link" id="nav-link" to=""  style={{t:"600"}}>
-              <li>Pricing</li>
-            </Link> */}
+          
           <Link
             className="link"
             id="nav-link"
@@ -68,11 +67,15 @@ export default function Landing() {
             style={{ fontWeight: "600" }}
           >
             <li>Support</li>
+
+            
+
           </Link>
-          <Link className="link" id="get-link" to="/dashboard">
+          <Link className="link" id="get-link" to="/connectwallet">
             {/* <button className="btn">sign in</button> */}
-            <span>sign in</span>
+            <span>Sign in</span>
           </Link>
+
         </div>
       </div>
       {/* </div> */}
@@ -82,7 +85,7 @@ export default function Landing() {
         <div className="hero-1">
           <div>
             <h1 className="hero-bg-text">
-              Simplify Medical Record Keeping with{" "}
+              Simplifing Medical Record and Healthcare with{" "}
               <span
                 style={{ fontWeight: "bolder", }}
                 className="hero-bg-bold"
@@ -92,9 +95,9 @@ export default function Landing() {
             </h1>
             <p className="hero-text-2" >
               Keep all your patient data organized & secure in one easy-to-use
-              desktop application.
+              healthFi protocol.
             </p>
-            <Link className="link" to="/dashboard">
+            <Link className="link" to="/connectwallet">
               <button className="hero-btn">Join now</button>
             </Link>
           </div>
@@ -111,17 +114,18 @@ export default function Landing() {
           <img src={pill} alt="pill" id="pill-img" />
         </div>
         <div className="section-one-b">
-          <h2 className="sec-one-text">Enhanced Collaboration</h2>
+          <h2 className="sec-one-text">Token and NFT Incentives</h2>
           <p className="section-one-text">
-            Our system makes it easy for healthcare professionals to share
-            information and collaborate on patient care.
+          Medibloc offers users rewards which can be redeemed in 
+          real life to purchase medications, schedule doctor's appointement and
+          access healthcare professionals globally
           </p>
         </div>
 
         <div className="hr"></div>
 
         <div className="section-one-c">
-          <Link className="link" to="/dashboard">
+          <Link className="link" to="/connectwallet">
             <button className="section-one-btn" id="section-one-btn">
               Try now
             </button>
@@ -189,7 +193,7 @@ export default function Landing() {
             <IoMdCheckboxOutline/>
               <p >Low Gas Fee</p>
             </li>
-            <Link className="link" to="/dashboard">
+            <Link className="link" to="/connectwallets">
               <button className="hero-btn">Join now</button>
             </Link>
           </ul>
@@ -200,17 +204,15 @@ export default function Landing() {
       <div className="section-three">
         <div className="section-three-a">
           <h2 className="section-three-text">
-            Various Health Departments You Can Access for Comprehensive Care
+          Subsizized Healthcare You Can Access for Comprehensive Care
           </h2>
           <p className="section-three-text-b">
             Our mission is to provide high-quality healthcare that addresses all
-            aspects of our patients' health. We believe in treating the whole
-            person, not just their symptoms or conditions, and empowering our
-            patients to take an active role in their own health. With a focus on
-            prevention and ongoing support, we aim to help our patients achieve
-            optimal health and wellbeing
+            aspects of our patients' health. Medibloc issues a "SAVE A LIFE" NFT badge to users who contribute to the society
+            by donating blood to save a life which can be redemmed to access subsidized healthcare
+            globally.
           </p>
-          <Link className="link" to="/dashboard">
+          <Link className="link" to="connectwallet">
             <button className="hero-btn">Join now</button>
           </Link>
         </div>
@@ -238,7 +240,7 @@ export default function Landing() {
             placeholder="Enter your E-mail Address"
             required
           ></input>
-          <Link className="section-four-link" to="/dashboard">
+          <Link className="section-four-link" to="/connectwallet">
             <button className="subscribe-btn">Subscribe</button>
           </Link>
         </div>
@@ -262,7 +264,7 @@ export default function Landing() {
         <div className="footer-section-2" id="here">
           <div className="footer-section-b">
             <h5>Information</h5>
-            <Link className="footer-link" to="/dashboard">
+            <Link className="footer-link" to="/connectwallet">
               <p>Sign Up</p>
             </Link>
             <Link className="footer-link" to="">
