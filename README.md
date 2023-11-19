@@ -4,27 +4,28 @@ Medibloc is a healthFi that allows users to store their medical records and also
 
 - Briefly describe your project and its use case.
 
-Codes and/or Smart Contract
+#### Network: Toronet Testnet
+#### Contract Address: 0x8084B71fd847053621f36a3A87DDC885f45A467D
 
-- Network: (testnet/mainnet)
+ ### Transactions
+- https://testnet.toronet.org/tx.html?id=0x7a2aa957b0e1e223f5b0d3ec6c90cec0d1071683f68a46ef32de4c58cd6bc7ea
 
-- Address: <Contract Address>
+- https://testnet.toronet.org/tx.html?id=0x8cb5246bdf25338686172bcc6f585e708f822504b877d76dcc3005bf3c4321db
 
-Transactions
-
-- <Transaction Hash 1>
-
-- <Transaction Hash 2>
+- https://testnet.toronet.org/tx.html?id=0x2ce40be61cdf8071bc3da43b22c0c746e60d09754df63611cc9177d3c6eb4e27
 
 
-Originality
+### Originality
 
-- This is an original work by our team. We build on top of the following tooling: ...
+- This is an original work by our team. We build on top of the following tooling: 
 
-Bonus
+- React (For the frontend)
+- Wagmi (For interacting with the Toronet Blockchain)
+- Solidity (For smart contract scripting)
 
-- Demo: <Link>
-
-- Video: <Link>
-
-- Tweet: <Link>
+ ### Useful Resources
+ 
+- Demo: https://medibloc.vercel.app/
+- Link to Repo: https://github.com/amdonatusprince/medibloc
+- Video: https://youtu.be/r_8gwhwlRhg
+- Tweet: https://x.com/amdonatusprince/status/1704902963213291604?s=20
