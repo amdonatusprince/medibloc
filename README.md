@@ -19,7 +19,7 @@ Medibloc is a healthFi that allows users to store their medical records and also
 
 ### Originality
 
-- This is an original work by our team. We build on top of the following tooling: 
+This is an original work by our team. We build on top of the following tooling: 
 
 - React (For the frontend)
 - Wagmi (For interacting with the Toronet Blockchain)
