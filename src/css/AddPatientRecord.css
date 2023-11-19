@@ -31,10 +31,12 @@
 
 .add-button {
     position: relative;
-    width: 2000px;
+    width: 100%;
     margin-top: 100px;
     margin-left: 0;
     padding: 10px 10px;
     font-weight: 500;
     font-size: 16px;
+    min-width:fit-content;
+    white-space: nowrap;
 }

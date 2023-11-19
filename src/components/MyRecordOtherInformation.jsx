@@ -5,7 +5,7 @@ import contractAbi from './contractABI.json';
 
 const provider = new ethers.providers.Web3Provider(window.ethereum);
 const signer = provider.getSigner();
-const contractAddress = "0x8084B71fd847053621f36a3A87DDC885f45A467D"; 
+const contractAddress = "0xF6477c535Ad72cb223e092Eb2cDBdB2F27101428"; 
 const abi = contractAbi;
 
 const MyRecordOtherInformation = () => {

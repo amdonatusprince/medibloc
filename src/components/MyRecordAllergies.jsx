@@ -13,7 +13,7 @@ const MyRecordAllergies = () => {
   const signer = provider.getSigner();
 
   // Contract address and ABI
-  const contractAddress = '0x8084B71fd847053621f36a3A87DDC885f45A467D';
+  const contractAddress = "0xF6477c535Ad72cb223e092Eb2cDBdB2F27101428"; 
   const contractABI = contractAbi;
 
   // Connect to the contract

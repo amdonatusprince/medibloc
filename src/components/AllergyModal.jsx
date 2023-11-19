@@ -1,50 +1,34 @@
-import React, { useState } from "react";
-import { BigNumber, ethers } from 'ethers';
-import contractABI from "./contractABI.json";
+import React, { useState } from 'react';
+import ClipLoader from 'react-spinners/ClipLoader';
+import { usePrepareContractWrite, useContractWrite, useAccount } from 'wagmi';
+import contractABI from './contractABI.json';
 
- 
 const AllergyModal = (props) => {
+  const { address } = useAccount();
   const [allergyDetails, setAllergyDetails] = useState({
-    allergyName: "",
-    description: "",
-    startDate: "",
-    medication: "",
+    allergyName: '',
+    description: '',
+    startDate: '',
+    medication: '',
   });
+
   const contractAddress = '0x8084B71fd847053621f36a3A87DDC885f45A467D';
-  const contractAbi = contractABI; 
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const signer = provider.getSigner();
+  const contractAbi = contractABI;
+  const { config: prepareConfig, loading: prepareLoading } = usePrepareContractWrite({
+    address: contractAddress,
+    abi: contractAbi,
+    functionName: 'addAnyAllergy',
+    args: [
+      address,
+      allergyDetails.allergyName,
+      allergyDetails.description,
+      allergyDetails.startDate,
+      allergyDetails.medication,
+    ],
+  });
 
-
-  if (!props.show) {
-    return null;
-  }
-
- 
-
-  const addAllergy = async () => {
-    try {
-      const contract = new ethers.Contract(contractAddress, contractAbi, signer);
-      const { allergyName, description, startDate, medication } = allergyDetails;
-
-      const startDateValue = BigNumber.from(Date.parse(startDate) / 1000);
-      await contract.addAllergy(allergyName, description, startDateValue, medication);
-
-      setAllergyDetails({
-        allergyName: "",
-        description: "",
-        startDate: "",
-        medication: "",
-      });
-
-      alert("Allergy added successfully!");
-
-      props.onClose();
-    } catch (error) {
-      console.error("Error adding allergy:", error);
-      alert("Error adding allergy. Please try again.");
-    }
-  };
+  const { data: contractData, isLoading: contractLoading, isSuccess: contractSuccess, write: contractWrite } =
+    useContractWrite(prepareConfig);
 
   const handleInputChange = (e) => {
     setAllergyDetails({
@@ -52,6 +36,27 @@ const AllergyModal = (props) => {
       [e.target.name]: e.target.value,
     });
   };
+
+  const addAllergy = async () => {
+    try {
+      await contractWrite();
+      setAllergyDetails({
+        allergyName: '',
+        description: '',
+        startDate: '',
+        medication: '',
+      });
+      // alert('Allergy added successfully!');
+      props.onClose();
+    } catch (error) {
+      console.error('Error adding allergy:', error);
+      // alert('Error adding allergy. Please try again.');
+    }
+  };
+
+  if (!props.show) {
+    return null;
+  }
 
   return (
     <div className="modal allergy_modal" onClick={props.onClose}>
@@ -95,10 +100,16 @@ const AllergyModal = (props) => {
           />
         </div>
         <div className="modal_footer">
-          <button onClick={addAllergy}>Add</button>
-          <button onClick={props.onClose} className="close_button">
-            Close
-          </button>
+          {contractLoading || prepareLoading ? (
+            <ClipLoader color="#113355" loading={contractLoading || prepareLoading} />
+          ) : (
+            <>
+              <button onClick={addAllergy}>Add</button>
+              <button onClick={props.onClose} className="close_button">
+                Close
+              </button>
+            </>
+          )}
         </div>
       </div>
     </div>

@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import "../css/getPatientRecord.css"
 import contractAbi from './contractABI.json';
 
+const contractAddress = "0xF6477c535Ad72cb223e092Eb2cDBdB2F27101428"; 
+
 const GetPatientRecord = () => {
   const [bloodGroup, setBloodGroup] = useState('');
   const [genotype, setGenotype] = useState('');

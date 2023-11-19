@@ -22,16 +22,16 @@ import {
 } from '@rainbow-me/rainbowkit/wallets';
 
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
-// import { opBNBMainnet, opBNBTestnet } from './Chain.tsx'
-import {
-  baseGoerli, base
-} from 'wagmi/chains';
+import { ToronetTestnet } from './Chain.tsx'
+// import {
+//   baseGoerli, base
+// } from 'wagmi/chains';
 
 import { publicProvider } from 'wagmi/providers/public';
 
 const projectId = '274de4271228fdd69013c56274f0e688';
 const { chains, publicClient } = configureChains(
-  [ baseGoerli, base],
+  [ ToronetTestnet],
   [
     publicProvider()
   ]
