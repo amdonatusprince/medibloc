@@ -36,10 +36,10 @@ const ManageAccess = () => {
 
   // Data for the table
   const data = [
-    ['1', 'TONY ', 'wsdertyuiopijhgdxcgh',<div>sdfyujik<DeleteIcon /></div>],
-    ['2', 'MARK', 'wsdertygijikedywcdv', <div>sdfghjk<DeleteIcon /></div>],
-    ['3', 'MICHEAL', 'efgdfhjgrgnjfbvh', <div>srtyuty<DeleteIcon /></div>],
-    ['4', 'RACHEAL', 'wertyuikjhgfvjkiuytf', <div>wertyu<DeleteIcon /></div>]
+    ['1', 'TONY ', 'wsdertyuiopijhgdxcgh',<div>Revoke<DeleteIcon /></div>],
+    ['2', 'MARK', 'wsdertygijikedywcdv', <div>Revoke<DeleteIcon /></div>],
+    ['3', 'MICHEAL', 'efgdfhjgrgnjfbvh', <div>Revoke<DeleteIcon /></div>],
+    ['4', 'RACHEAL', 'wertyuikjhgfvjkiuytf', <div>Revole<DeleteIcon /></div>]
   ]; 
 
   return (

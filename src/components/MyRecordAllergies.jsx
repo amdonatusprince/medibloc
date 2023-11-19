@@ -1,57 +1,37 @@
-import React, { useState, useEffect } from 'react';
-import { ethers } from 'ethers';
+import React, { useState } from 'react';
+import ClipLoader from 'react-spinners/ClipLoader';
+import { useContractRead, useAccount } from 'wagmi';
+import contractABI from './contractABI.json';
 import noRecordsImage from '../images/no_record.png';
-import contractAbi from './contractABI.json';
-import "../css/getPatientRecord.css";
+import '../css/getPatientRecord.css';
 
 const MyRecordAllergies = () => {
+  const { address } = useAccount();
   const [allergies, setAllergies] = useState(null);
-  const [patientAddress, setPatientAddress] = useState('');
 
-  // Connect to the Ethereum provider
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const signer = provider.getSigner();
+  const contractAddress = '0x8084B71fd847053621f36a3A87DDC885f45A467D';
+  const contractAbi = contractABI;
 
-  // Contract address and ABI
-  const contractAddress = "0xF6477c535Ad72cb223e092Eb2cDBdB2F27101428"; 
-  const contractABI = contractAbi;
 
-  // Connect to the contract
-  const contract = new ethers.Contract(contractAddress, contractABI, signer);
+  const { data: allergiesData, isLoading: allergyLoading, isError: allergyError } = useContractRead ({
+    address: contractAddress,
+    abi: contractAbi,
+    functionName: 'getAllergies',
+    args: [address],
+  });
 
-  const getAllergy = async () => {
+
+  const getAllergy = () => {
     try {
-      // Call the getAllergy function from the contract
-      const allergyData = await contract.getAllergy(patientAddress);
-      setAllergies(allergyData);
+      if (!allergyLoading && !allergyError && allergiesData) {
+        setAllergies(allergiesData);
+      }
     } catch (error) {
       console.error('Error fetching allergy data:', error);
     }
   };
 
-  const fetchConnectedAddress = async () => {
-    if (window.ethereum) {
-      try {
-        // Request access to the user's MetaMask accounts
-        await window.ethereum.request({ method: 'eth_requestAccounts' });
-        const accounts = await provider.listAccounts();
-        if (accounts.length > 0) {
-          const connectedAddress = accounts[0];
-          setPatientAddress(connectedAddress);
-        }
-      } catch (error) {
-        console.error('Error fetching connected address:', error);
-      }
-    }
-  };
-
-  useEffect(() => {
-    fetchConnectedAddress();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [provider]);
-
   return (
-    <>
     <div className="my_record_allergy">
       <h3>Allergies</h3>
       {allergies ? (
@@ -59,7 +39,7 @@ const MyRecordAllergies = () => {
           <div className="disabilities_card" key={allergy._allergyName}>
             <p>Allergy Name: {allergy.allergyName}</p>
             <p>Description: {allergy.description}</p>
-            <p>Start Date: {new Date(allergy.startDate * 1000).toLocaleString()}</p>
+            <p>Start Date: {allergy.startDate}</p>
             <p>Medication: {allergy.medication}</p>
           </div>
         ))
@@ -69,9 +49,10 @@ const MyRecordAllergies = () => {
           <p>No Record Yet</p>
         </div>
       )}
-      <button onClick={getAllergy}>Get Allergies</button>
+      <div className="get-allergies-btn">
+          <button onClick={getAllergy}>Get Allergies</button>
       </div>
-    </>
+    </div>
   );
 };
 
