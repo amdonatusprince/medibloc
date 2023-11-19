@@ -1,54 +1,44 @@
-import React, { useState, useEffect } from "react";
-import no_records from "../images/no_record.png";
-import { ethers } from "ethers";
-import contractAbi from "./contractABI.json";
-import "../css/getPatientRecord.css";
+import React, { useState } from 'react';
+import { useContractRead, useAccount } from 'wagmi';
+import contractABI from './contractABI.json';
+import no_records from '../images/no_record.png';
+import '../css/getPatientRecord.css';
 
 const GetDisability = () => {
+  const { address } = useAccount();
   const [disability, setDisability] = useState(null);
   const [diagnosisDate, setDiagnosisDate] = useState(null);
   const [description, setDescription] = useState(null);
   const [medication, setMedication] = useState(null);
-  const [patientAddress, setPatientAddress] = useState(null);
 
-  const contractAddress = "0xF6477c535Ad72cb223e092Eb2cDBdB2F27101428"; 
-  const contractABI = contractAbi;
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const signer = provider.getSigner();
-  const contract = new ethers.Contract(contractAddress, contractABI, signer);
+  const contractAddress = '0x8084B71fd847053621f36a3A87DDC885f45A467D';
+  const contractAbi = contractABI;
 
-  useEffect(() => {
-    const fetchPatientAddress = async () => {
-      try {
-        const accounts = await window.ethereum.request({
-          method: "eth_requestAccounts",
-        });
-        const address = accounts[0];
-        setPatientAddress(address);
-      } catch (error) {
-        console.error("Error fetching patient address:", error);
-      }
-    };
+  const { data: disabilityRecord, isLoading: disabilityLoading, isError: disabilityError } = useContractRead ({
+    address: contractAddress,
+    abi: contractAbi,
+    functionName: 'getDisabilities',
+    args: [address],
+  });
 
-    fetchPatientAddress();
-  }, []);
 
-  const handleClick = async () => {
+  const handleClick = () => {
     try {
-      const fetchedData = await contract.getDisability(patientAddress);
-      const [disability, diagnosisDate, description, medication] = fetchedData;
-      setDisability(disability);
-      setDiagnosisDate(diagnosisDate.toNumber());
-      setDescription(description);
-      setMedication(medication);
+      // Check if data is available and not loading
+      if (!disabilityLoading && !disabilityError && disabilityData) {
+        const [disability, diagnosisDate, description, medication] = disabilityData;
+        setDisability(disability);
+        setDiagnosisDate(diagnosisDate.toNumber());
+        setDescription(description);
+        setMedication(medication);
+      }
     } catch (error) {
-      console.error("Error retrieving disability:", error);
+      console.error('Error retrieving disability:', error);
     }
   };
 
   return (
-    <>
-      <div className="my_record_disability">
+    <div className="my_record_disability">
       <h3>Disabilities</h3>
       <div className="disabilities_card">
         {disability ? (
@@ -65,9 +55,10 @@ const GetDisability = () => {
           </>
         )}
       </div>
-      <button onClick={handleClick}>Get Disability</button>
+      <div className="get-disability-btn">
+          <button onClick={handleClick}>Get Disability</button>
       </div>
-    </>
+    </div>
   );
 };
 

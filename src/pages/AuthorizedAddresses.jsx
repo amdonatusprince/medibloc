@@ -12,46 +12,13 @@ const contract = new ethers.Contract(contractAddress, abi, signer);
 
 
 const GetAuthorizedAddresses = () => {
-  const [userDetails, setUserDetails] = useState([]);
-
-  const fetchUserDetails = async () => {
-    try {
-      // Fetch user details from the smart contract
-      const fetchedUserDetails = await contract.getAuthorizedAddresses();
-      setUserDetails(fetchedUserDetails);
-    } catch (error) {
-      alert("Failed to fetch user details from the smart contract");
-    }
-  };
 
   return (
     <div className="medical-records main_container">
-      <button onClick={fetchUserDetails}>Authorized Addresses</button>
-      {userDetails.length > 0 && (
-        <div>
-          
-              
-              {userDetails.map((user, index) => (
-                <table>
-                  <tr>
-                {/* <th>Wallet Address:</th> */}
-                {
-                  index==="0" ?
-                  (<th>Name:</th>)
-                  : 
-                  (<th>Wallet Address:</th>)
-                }
-                <th>{user}</th>
-                </tr>
-                <tr >
-                  <td></td>
-                  {/* <td>{index}</td> */}
-                </tr>
-                </table>
-              ))}
-          
-        </div>
-      )}
+      <p>Enter Address you wish to grant permision to view your information!</p>
+      <input></input>
+      <button >Grant Access</button>
+      
     </div>
   );
 };
