@@ -1,36 +1,36 @@
 import React, { useState } from "react";
-import { ethers } from "ethers";
+import ClipLoader from "react-spinners/ClipLoader";
+import { usePrepareContractWrite, useContractWrite, useAccount } from "wagmi";
 import contractAbi from "./contractABI.json";
 
-const contractAddress = '0x8084B71fd847053621f36a3A87DDC885f45A467D';
-const contractABI = contractAbi; 
-const provider = new ethers.providers.Web3Provider(window.ethereum);
-const signer = provider.getSigner();
-const contract = new ethers.Contract(contractAddress, contractABI, signer);
-
-
+const contractAddress = "0x8084B71fd847053621f36a3A87DDC885f45A467D";
+const contractABI = contractAbi;
 
 const DisabilitiesModal = (props) => {
+  const { address } = useAccount();
   const [errorMessage, setErrorMessage] = useState("");
+  const [disability, setDisability] = useState("");
+  const [diagnosisDate, setDiagnosisDate] = useState("");
+  const [description, setDescription] = useState("");
+  const [medication, setMedication] = useState("");
+
+  const { config: prepareConfig, loading: prepareLoading } = usePrepareContractWrite({
+    address: contractAddress,
+    abi: contractABI,
+    functionName: "addAnyDisability",
+    args: [address, disability, description, diagnosisDate, medication],
+  });
+
+  const { data: contractData, isLoading: contractLoading, isSuccess: contractSuccess, write: contractWrite } =
+    useContractWrite(prepareConfig);
 
   const handleAddDisability = async () => {
     try {
-      
-      const disability = document.getElementById("disabilityInput").value;
-      const diagnosisDateInput = document.getElementById("diagnosisDateInput").value;
-      const description = document.getElementById("descriptionInput").value;
-      const medication = document.getElementById("medicationInput").value;
-
-      // Convert diagnosisDate to a Unix timestamp
-      const diagnosisDate = new Date(diagnosisDateInput).getTime() / 1000;
-
-      await contract.addDisability(disability, diagnosisDate, description, medication);
-
-      document.getElementById("disabilityInput").value = "";
-      document.getElementById("diagnosisDateInput").value = "";
-      document.getElementById("descriptionInput").value = "";
-      document.getElementById("medicationInput").value = "";
-
+      await contractWrite();
+      setDisability("");
+      setDiagnosisDate("");
+      setDescription("");
+      setMedication("");
       props.onClose();
     } catch (error) {
       console.error("Error adding disability:", error);
@@ -50,20 +50,51 @@ const DisabilitiesModal = (props) => {
         </div>
         <div className="modal_body">
           <h4>Disability</h4>
-          <input id="disabilityInput" type="text" placeholder="What is your disease state?" />
+          <input
+            id="disabilityInput"
+            type="text"
+            placeholder="What is your disease state?"
+            value={disability}
+            onChange={(e) => setDisability(e.target.value)}
+          />
           <h4>Diagnosis date</h4>
-          <input id="diagnosisDateInput" type="date" placeholder="YYYY-MM-DD" />
+          <input
+            id="diagnosisDateInput"
+            type="date"
+            placeholder="YYYY-MM-DD"
+            value={diagnosisDate}
+            onChange={(e) => setDiagnosisDate(e.target.value)}
+          />
           <h4>Description</h4>
-          <input id="descriptionInput" type="text" placeholder="Description" />
+          <input
+            id="descriptionInput"
+            type="text"
+            placeholder="Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
           <h4>Medication</h4>
-          <input id="medicationInput" type="text" placeholder="Add your meds" />
+          <input
+            id="medicationInput"
+            type="text"
+            placeholder="Add your meds"
+            value={medication}
+            onChange={(e) => setMedication(e.target.value)}
+          />
         </div>
         <div className="modal_footer">
-          <button onClick={handleAddDisability}>Add</button>
-          <button onClick={props.onClose} className="close_button">
-            Close
-          </button>
+          {contractLoading || prepareLoading ? (
+            <ClipLoader color="#113355" loading={contractLoading || prepareLoading} />
+          ) : (
+            <>
+              <button onClick={handleAddDisability}>Add</button>
+              <button onClick={props.onClose} className="close_button">
+                Close
+              </button>
+            </>
+          )}
         </div>
+        {contractSuccess && <p style={{ color: "green", marginTop: "10px" }}>Record added!</p>}
         {errorMessage && <p className="error_message">{errorMessage}</p>}
       </div>
     </div>

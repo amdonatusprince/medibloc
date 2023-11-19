@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { ethers } from "ethers";
+import { usePrepareContractWrite, useContractWrite, useAccount } from 'wagmi';
+import ClipLoader from "react-spinners/ClipLoader";
 import contractABI from "./contractABI.json";
 
 const AddOtherInformation = (props) => {
@@ -9,33 +10,33 @@ const AddOtherInformation = (props) => {
   const [description, setDescription] = useState("");
   const [medication, setMedication] = useState("");
 
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const signer = provider.getSigner();
+  const contractAddress = "0x8084B71fd847053621f36a3A87DDC885f45A467D";
+  const contractAbi = contractABI;
+  const { address } = useAccount();
 
-  const contractAddress = "0x8084B71fd847053621f36a3A87DDC885f45A467D"; 
-  const contractAbi = contractABI; 
+  const { config, loading, write } = usePrepareContractWrite({
+    address: contractAddress,
+    abi: contractAbi,
+    functionName: 'addOtherInformation',
+    args: [
+      address,
+      disease,
+      diagnosedDate,
+      description,
+      medication
+    ],
+  });
+
+  const { isLoading, isSuccess } = useContractWrite(config);
 
   const addOtherInformation = async () => {
     try {
-      const contract = new ethers.Contract(contractAddress, contractAbi, signer);
-
-      // Call the addOtherInformation function
-      await contract.addOtherInformation(
-        title,
-        Date.parse(diagnosedDate) / 1000,
-        disease,
-        description,
-        medication
-      );
-
-      // Clear the form inputs
+      await write();
       setTitle("");
       setDiagnosedDate("");
       setDisease("");
       setDescription("");
       setMedication("");
-
-      // Trigger the onClose callback to close the modal
       props.onClose();
     } catch (error) {
       console.error(error);
@@ -53,7 +54,7 @@ const AddOtherInformation = (props) => {
           <h2>Any other Disease state?</h2>
         </div>
         <div className="modal_body">
-          <h4>Title</h4>
+          <h4>Title of</h4>
           <input
             type="text"
             placeholder="What kind of sickness?"
@@ -90,10 +91,16 @@ const AddOtherInformation = (props) => {
           />
         </div>
         <div className="modal_footer">
-          <button onClick={addOtherInformation}>Add</button>
-          <button onClick={props.onClose} className="close_button">
-            Close
-          </button>
+          {loading || isLoading ? (
+            <ClipLoader color="#113355" loading={loading || isLoading} />
+          ) : (
+            <>
+              <button onClick={addOtherInformation}>Add</button>
+              <button onClick={props.onClose} className="close_button">
+                Close
+              </button>
+            </>
+          )}
         </div>
       </div>
     </div>

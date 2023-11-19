@@ -1,30 +1,33 @@
 import React, { useState } from 'react';
-import { ethers } from 'ethers';
+import ClipLoader from 'react-spinners/ClipLoader';
 import '../css/AddPatientRecord.css';
-import contractAbi from "./contractABI.json";
-
-const contractAddress = "0x8084B71fd847053621f36a3A87DDC885f45A467D";
-const abi = contractAbi;
-
-const provider = new ethers.providers.Web3Provider(window.ethereum);
-const signer = provider.getSigner(); // Get the signer from the provider
-const contract = new ethers.Contract(contractAddress, abi, signer); // Use the signer
+import contractAbi from './contractABI.json';
+import { useAccount, usePrepareContractWrite, useContractWrite } from 'wagmi';
 
 const AddPatientRecord = () => {
-  // const [setError] = useState(null);
+  const { address } = useAccount();
+  const [successMessage, setSuccessMessage] = useState(null);
+  const [bloodGroup, setBloodGroup] = useState('');
+  const [genotype, setGenotype] = useState('');
+  const [weight, setWeight] = useState('');
 
-  const handleAddPatientRecord = async () => {
+  const { config } = usePrepareContractWrite({
+    address: '0x8084B71fd847053621f36a3A87DDC885f45A467D',
+    abi: contractAbi,
+    functionName: 'updatePatientStats',
+    args: [address, bloodGroup, genotype, weight],
+  });
+
+  const { data, isLoading, isSuccess, write } = useContractWrite(config);
+
+  const handleAddRecord = async () => {
     try {
-      const bloodGroup = document.getElementById('bloodGroup').value;
-      const genotype = document.getElementById('genotype').value;
-      const weight = document.getElementById('weight').value;
-
-      await contract.addPatientRecord(bloodGroup, genotype, weight);
-      console.log('Patient record added successfully!');
+      await write(); // Call the write function
+      // Display success message in green
+      setSuccessMessage('Record added!');
     } catch (error) {
-      // setError(error.message);
-      console.error('Error adding patient record:', error);
-      window.alert(error.message); // Display error as an alert
+      // Handle error if the transaction fails
+      console.error('Error adding record:', error);
     }
   };
 
@@ -34,7 +37,7 @@ const AddPatientRecord = () => {
         <div className="patient-details-section">
           <h3>Blood Group</h3>
           <form action="">
-            <select id="bloodGroup" name="">
+            <select id="bloodGroup" name="" onChange={(e) => setBloodGroup(e.target.value)}>
               <option value="">None</option>
               <option value="A">A</option>
               <option value="B">B</option>
@@ -48,7 +51,7 @@ const AddPatientRecord = () => {
         <div className="patient-details-section">
           <h3>Genotype</h3>
           <form action="">
-            <select id="genotype" name="">
+            <select id="genotype" name="" onChange={(e) => setGenotype(e.target.value)}>
               <option value="">None</option>
               <option value="AA">AA</option>
               <option value="AC">AC</option>
@@ -63,12 +66,27 @@ const AddPatientRecord = () => {
       <section>
         <div className="patient-details-section">
           <h3>Weight (kg)</h3>
-          <input id="weight" type="text" placeholder="0" />
+          <input id="weight" type="text" placeholder="0" onChange={(e) => setWeight(e.target.value)} />
         </div>
       </section>
-      <button id="addButton" className="add-button" onClick={handleAddPatientRecord}>
-        Add Patient Record
-      </button>
+
+      {isLoading && (
+        <div className="add-button">
+          <ClipLoader color="#113355" loading={isLoading} />
+        </div>
+      )}
+
+      {isSuccess && !isLoading && (
+        <div style={{ color: 'green', marginTop: '10px' }}>
+          {successMessage}
+        </div>
+      )}
+
+      {!isLoading && !isSuccess && (
+        <button id="addButton" className="add-button" onClick={handleAddRecord}>
+          Add Patient Record
+        </button>
+      )}
     </div>
   );
 };
