@@ -25,9 +25,8 @@ This is an original work by our team. We build on top of the following tooling:
 - Wagmi (For interacting with the Toronet Blockchain)
 - Solidity (For smart contract scripting)
 
- ### Useful Resources
- 
-- Demo: https://medibloc.vercel.app/
+### Useful Resources
+- Demo URL: https://medibloc.vercel.app/
 - Link to Repo: https://github.com/amdonatusprince/medibloc
-- Video: https://youtu.be/r_8gwhwlRhg
-- Tweet: https://x.com/amdonatusprince/status/1704902963213291604?s=20
+- Demo Video: https://youtu.be/r_8gwhwlRhg
+- Link to Tweet: https://twitter.com/amdonatusprince/status/1726477875480875246?s=46&t=xNxTZM0CM2IJUJavjzwbqQ
