@@ -61,7 +61,7 @@ This is an original work by our team. We build on top of the following tooling:
 - Demo Video: https://youtu.be/r_8gwhwlRhg
 - Link to Tweet: https://twitter.com/amdonatusprince/status/1726477875480875246?s=46&t=xNxTZM0CM2IJUJavjzwbqQ
 
-# Summary, 
+# Summary
 
 Medibloc Protocol integrates blockchain technology to offer a comprehensive health ecosystem that combines medical record management, blood donation incentives, token rewards, and subsidized healthcare services. 
 
