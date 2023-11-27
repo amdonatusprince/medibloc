@@ -193,7 +193,7 @@ export default function Landing() {
             <IoMdCheckboxOutline/>
               <p >Low Gas Fee</p>
             </li>
-            <Link className="link" to="/connectwallets">
+            <Link className="link" to="/connectwallet">
               <button className="hero-btn">Join now</button>
             </Link>
           </ul>
